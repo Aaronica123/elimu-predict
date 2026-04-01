@@ -62,6 +62,12 @@ const App = () => (
               </Route>
             </Route>
 
+            <Route element={<ProtectedRoute allowedRoles={["PARENT"]} />}>
+              <Route element={<AppLayout />}>
+                <Route path="/my-child" element={<MyChildPage />} />
+              </Route>
+            </Route>
+
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

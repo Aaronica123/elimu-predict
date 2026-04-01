@@ -1,8 +1,9 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search, Plus, GraduationCap } from "lucide-react";
+import { Search, GraduationCap } from "lucide-react";
 import { useState } from "react";
+import AddStudentDialog from "@/components/AddStudentDialog";
 import { useAuth } from "@/contexts/AuthContext";
 
 const MOCK_STUDENTS = [

@@ -1,28 +1,18 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { BookOpen, Search, FlaskConical, Calculator, Globe, Palette, Dumbbell, Laptop, Sprout, Scale, Languages, Music, Hammer } from "lucide-react";
+import { BookOpen, Search, FlaskConical, Globe, Languages, Music, Hammer } from "lucide-react";
 import { useState } from "react";
 
 const SUBJECTS = [
-  // Group 1: Languages
   { id: 1, code: "ENG101", name: "English", category: "Languages", compulsory: true },
   { id: 2, code: "KIS101", name: "Kiswahili", category: "Languages", compulsory: true },
-
-  // Group 2: Sciences
   { id: 3, code: "MAT101", name: "Mathematics", category: "Sciences", compulsory: true },
   { id: 4, code: "PHY101", name: "Physics", category: "Sciences", compulsory: false },
   { id: 5, code: "CHE101", name: "Chemistry", category: "Sciences", compulsory: false },
   { id: 6, code: "BIO101", name: "Biology", category: "Sciences", compulsory: false },
-
-  // Group 3: Humanities
   { id: 7, code: "HIS101", name: "History & Government", category: "Humanities", compulsory: false },
   { id: 8, code: "GEO101", name: "Geography", category: "Humanities", compulsory: false },
   { id: 9, code: "CRE101", name: "Christian Religious Education (CRE)", category: "Humanities", compulsory: false },
   { id: 10, code: "IRE101", name: "Islamic Religious Education (IRE)", category: "Humanities", compulsory: false },
   { id: 11, code: "HRE101", name: "Hindu Religious Education (HRE)", category: "Humanities", compulsory: false },
-
-  // Group 4: Technical & Applied
   { id: 12, code: "AGR101", name: "Agriculture", category: "Technical", compulsory: false },
   { id: 13, code: "BST101", name: "Business Studies", category: "Technical", compulsory: false },
   { id: 14, code: "CST101", name: "Computer Studies", category: "Technical", compulsory: false },
@@ -35,8 +25,6 @@ const SUBJECTS = [
   { id: 21, code: "ELC101", name: "Electricity", category: "Technical", compulsory: false },
   { id: 22, code: "DND101", name: "Drawing & Design", category: "Technical", compulsory: false },
   { id: 23, code: "AVT101", name: "Aviation Technology", category: "Technical", compulsory: false },
-
-  // Group 5: Creative Arts & PE
   { id: 24, code: "MUS101", name: "Music", category: "Creative Arts", compulsory: false },
   { id: 25, code: "FRN101", name: "French", category: "Languages", compulsory: false },
   { id: 26, code: "GER101", name: "German", category: "Languages", compulsory: false },
@@ -44,71 +32,62 @@ const SUBJECTS = [
   { id: 28, code: "KSL101", name: "Kenya Sign Language", category: "Languages", compulsory: false },
 ];
 
-const CATEGORY_ICONS: Record<string, React.ReactNode> = {
-  Languages: <Languages className="h-5 w-5 text-primary" />,
-  Sciences: <FlaskConical className="h-5 w-5 text-primary" />,
-  Humanities: <Globe className="h-5 w-5 text-primary" />,
-  Technical: <Hammer className="h-5 w-5 text-primary" />,
-  "Creative Arts": <Music className="h-5 w-5 text-primary" />,
+const ICONS: Record<string, React.ReactNode> = {
+  Languages: <Languages />,
+  Sciences: <FlaskConical />,
+  Humanities: <Globe />,
+  Technical: <Hammer />,
+  "Creative Arts": <Music />,
 };
-
 const CATEGORIES = ["Languages", "Sciences", "Humanities", "Technical", "Creative Arts"];
 
 const SubjectsPage = () => {
   const [search, setSearch] = useState("");
-
   const filtered = SUBJECTS.filter(
     (s) => s.name.toLowerCase().includes(search.toLowerCase()) || s.code.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
     <div className="animate-fade-in">
-      <div className="mb-6">
-        <h1 className="text-2xl font-heading font-bold text-foreground">Subjects</h1>
-        <p className="text-muted-foreground text-sm mt-1">All subjects taught in Kenyan secondary schools (KCSE curriculum)</p>
+      <div className="page-header">
+        <h1>Subjects</h1>
+        <p className="subtitle">All subjects taught in Kenyan secondary schools (KCSE curriculum)</p>
       </div>
 
-      <div className="relative mb-6 max-w-sm">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-        <Input
-          placeholder="Search subjects..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="pl-10"
-        />
+      <div className="search-bar">
+        <div className="input-group">
+          <Search className="icon-left" />
+          <input
+            className="input with-icon-left"
+            placeholder="Search subjects..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
       </div>
 
       {CATEGORIES.map((category) => {
         const subjects = filtered.filter((s) => s.category === category);
         if (subjects.length === 0) return null;
-
         return (
-          <div key={category} className="mb-8">
-            <h2 className="text-lg font-heading font-semibold text-foreground mb-3 flex items-center gap-2">
-              {CATEGORY_ICONS[category]}
+          <div key={category} className="section">
+            <h2>
+              {ICONS[category]}
               {category}
-              <Badge variant="secondary" className="ml-1 text-xs">{subjects.length}</Badge>
+              <span className="badge">{subjects.length}</span>
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-3">
               {subjects.map((s) => (
-                <Card key={s.id} className="hover:shadow-lg transition-shadow">
-                  <CardContent className="p-5">
-                    <div className="flex items-start gap-3">
-                      <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                        <BookOpen className="h-5 w-5 text-primary" />
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2">
-                          <p className="font-mono text-xs text-muted-foreground">{s.code}</p>
-                          {s.compulsory && (
-                            <Badge variant="default" className="text-[10px] px-1.5 py-0">Compulsory</Badge>
-                          )}
-                        </div>
-                        <h3 className="font-heading font-semibold text-foreground">{s.name}</h3>
-                      </div>
+                <div key={s.id} className="subject-card">
+                  <div className="icon-wrap"><BookOpen /></div>
+                  <div style={{ flex: 1 }}>
+                    <div className="flex items-center gap-2 mb-2">
+                      <p className="font-mono text-xs muted-text">{s.code}</p>
+                      {s.compulsory && <span className="badge primary">Compulsory</span>}
                     </div>
-                  </CardContent>
-                </Card>
+                    <h3 style={{ fontSize: "1rem" }}>{s.name}</h3>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
@@ -116,7 +95,7 @@ const SubjectsPage = () => {
       })}
 
       {filtered.length === 0 && (
-        <p className="text-center text-muted-foreground py-12">No subjects found matching your search.</p>
+        <p className="text-center muted-text" style={{ padding: "3rem 0" }}>No subjects found matching your search.</p>
       )}
     </div>
   );

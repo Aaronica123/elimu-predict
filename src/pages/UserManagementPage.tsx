@@ -1,8 +1,5 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Users, Shield, ShieldOff } from "lucide-react";
-import { toast } from "sonner";
+import { Shield, ShieldOff } from "lucide-react";
+import { toast } from "@/lib/toast";
 
 const MOCK_USERS = [
   { id: 1, fullName: "Jane Wanjiku", userId: "TCH001", role: "TEACHER", isActive: true },
@@ -15,53 +12,45 @@ const MOCK_USERS = [
 
 const UserManagementPage = () => (
   <div className="animate-fade-in">
-    <div className="flex items-center justify-between mb-6">
+    <div className="row-between mb-6">
       <div>
-        <h1 className="text-2xl font-heading font-bold text-foreground">User Management</h1>
-        <p className="text-muted-foreground text-sm mt-1">Manage roles and access for all users</p>
+        <h1>User Management</h1>
+        <p className="subtitle">Manage roles and access for all users</p>
       </div>
     </div>
-    <Card>
-      <CardContent className="p-0">
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+    <div className="card">
+      <div className="card-content flush">
+        <div className="table-wrap">
+          <table className="table">
             <thead>
-              <tr className="border-b border-border bg-muted/50">
-                <th className="text-left p-4 font-semibold text-foreground">User</th>
-                <th className="text-left p-4 font-semibold text-foreground">ID</th>
-                <th className="text-left p-4 font-semibold text-foreground">Role</th>
-                <th className="text-left p-4 font-semibold text-foreground">Status</th>
-                <th className="text-left p-4 font-semibold text-foreground">Actions</th>
+              <tr>
+                <th>User</th><th>ID</th><th>Role</th><th>Status</th><th>Actions</th>
               </tr>
             </thead>
             <tbody>
               {MOCK_USERS.map((u) => (
-                <tr key={u.id} className="border-b border-border last:border-0 hover:bg-muted/30 transition-colors">
-                  <td className="p-4 font-medium text-foreground">{u.fullName}</td>
-                  <td className="p-4 font-mono text-xs text-muted-foreground">{u.userId}</td>
-                  <td className="p-4">
-                    <Badge variant="secondary" className="text-xs">{u.role.replace("_", " ")}</Badge>
-                  </td>
-                  <td className="p-4">
-                    <Badge variant={u.isActive ? "default" : "destructive"} className="text-xs">
-                      {u.isActive ? "Active" : "Revoked"}
-                    </Badge>
-                  </td>
-                  <td className="p-4 flex gap-2">
-                    <Button size="sm" variant="outline" onClick={() => toast.info("Role assignment dialog would open here")}>
-                      <Shield className="h-3 w-3 mr-1" />Assign
-                    </Button>
-                    <Button size="sm" variant="outline" className="text-destructive hover:text-destructive" onClick={() => toast.info("Access revoked")}>
-                      <ShieldOff className="h-3 w-3 mr-1" />Revoke
-                    </Button>
+                <tr key={u.id}>
+                  <td className="font-bold">{u.fullName}</td>
+                  <td className="mono">{u.userId}</td>
+                  <td><span className="badge">{u.role.replace("_", " ")}</span></td>
+                  <td><span className={`badge ${u.isActive ? "success" : "danger"}`}>{u.isActive ? "Active" : "Revoked"}</span></td>
+                  <td>
+                    <div className="flex gap-2">
+                      <button className="btn btn-outline btn-sm" onClick={() => toast.info("Role assignment dialog would open here")}>
+                        <Shield /> Assign
+                      </button>
+                      <button className="btn btn-outline btn-sm danger" onClick={() => toast.info("Access revoked")}>
+                        <ShieldOff /> Revoke
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   </div>
 );
 

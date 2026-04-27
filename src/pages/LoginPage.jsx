@@ -28,6 +28,14 @@ const LoginPage = () => {
             setError("Please enter your Staff/Parent ID and password.");
             return;
         }
+        if (!/^[A-Z]{3}\d{3,5}$/.test(userId.trim().toUpperCase())) {
+            setError("Invalid ID format. Use 3 letters followed by digits (e.g. TCH001).");
+            return;
+        }
+        if (password.length < 6) {
+            setError("Password must be at least 6 characters.");
+            return;
+        }
         setLoading(true);
         await new Promise((r) => setTimeout(r, 600));
         const demo = DEMO_ACCOUNTS[userId.toUpperCase()];

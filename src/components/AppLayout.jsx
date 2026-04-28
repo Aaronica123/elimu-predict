@@ -5,6 +5,16 @@ import { getNavForRole } from "@/lib/navigation";
 import { GraduationCap, LogOut, Menu, X, Bell } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+
+const ROLE_LABELS = {
+  TEACHER: "Teacher",
+  SENIOR_TEACHER: "Senior Teacher",
+  DEPUTY_PRINCIPAL: "Deputy Principal",
+  PRINCIPAL: "Principal",
+  IT_HANDLER: "IT Support",
+  ADMIN: "Administrator",
+  PARENT: "Parent",
+};
 const AppLayout = () => {
     const { user, logout } = useAuth();
     const navigate = useNavigate();

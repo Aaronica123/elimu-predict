@@ -1,6 +1,7 @@
 import { UserPlus } from "lucide-react";
 import { useState } from "react";
 import { toast } from "@/lib/toast";
+import api from "../lib/api";
 
 const NAME_RE = /^[A-Za-z][A-Za-z'\-\s]{1,49}$/;
 const USER_ID_RE = /^[A-Z]{3}\d{3,5}$/; // e.g. TCH002, PAR001
@@ -31,7 +32,7 @@ const RegisterUsersPage = () => {
         setErrors((prev) => ({ ...prev, [field]: undefined }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
         const errs = validate(formData);
         setErrors(errs);
@@ -39,9 +40,22 @@ const RegisterUsersPage = () => {
             toast.error("Please fix the highlighted errors");
             return;
         }
-        toast.success("User registered successfully", { description: `${formData.fullName} registered as ${formData.role}` });
+        try{
+          const resp=await api.post('/users/register',{
+          "fullName":formData.fullName,
+          "password":formData.password,
+          "username":formData.userId,
+          "role":formData.role
+        })
+
+        toast.success("User registered successfully", { description: `${resp.fullName} registered on ${resp.createdAt}` });
         setFormData({ fullName: "", userId: "", password: "", role: "" });
         setErrors({});
+        }
+        catch(error){
+          alert(error.message)
+        }
+        
     };
 
     const errStyle = { color: "hsl(var(--destructive))", fontSize: "0.75rem", marginTop: "0.25rem" };

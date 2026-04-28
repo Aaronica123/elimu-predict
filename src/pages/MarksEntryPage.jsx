@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { toast } from "@/lib/toast";
-
+import api from "../lib/api";
 const ADMISSION_RE = /^[A-Z]{2,4}\d{3,8}$/;
 const DIGITS_ONLY_RE = /^\d+$/;
 
@@ -39,7 +39,7 @@ const MarksEntryPage = () => {
     };
     const setDigits = (field, value) => set(field, value.replace(/\D/g, ""));
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
         const errs = validate(formData);
         setErrors(errs);
@@ -47,7 +47,23 @@ const MarksEntryPage = () => {
             toast.error("Please fix the highlighted errors");
             return;
         }
+        try{
+          const resp=await api.post('/auth/marks',{
+          'admissionNumber':formData.admissionNumber,
+          'academicYear':formData.academicYear,
+          'examType':formData.examType,
+          'marksObtained':formData.marksObtained,
+          'subjectId':formData.subjectId,
+          'term':formData.term
+        })
         toast.success("Marks uploaded successfully", { description: `Marks saved for ${formData.admissionNumber}` });
+        }
+        catch(error){
+          alert (error.message)
+        }
+        
+
+        
     };
 
     const errStyle = { color: "hsl(var(--destructive))", fontSize: "0.75rem", marginTop: "0.25rem" };

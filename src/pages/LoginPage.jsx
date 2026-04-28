@@ -40,10 +40,10 @@ const LoginPage = () => {
           login(resp.token,lt)
           const x=lt[1]
           setLoading(false);
-          alert ("success"+x)
+          alert ("success"+x +lt[2])
           navigate("/dashboard")
           
-        }
+        } 
         catch (error){
 
           alert("failed")

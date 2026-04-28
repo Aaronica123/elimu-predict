@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
         sessionStorage.removeItem("elimu_token");
         sessionStorage.removeItem("elimu_user");
     }, []);
-    const hasRole = useCallback((roles) => !!user && roles.includes(user.role), [user]);
+    const hasRole = useCallback((roles) => !!user && roles.includes(user[2]), [user]);
     return (<AuthContext.Provider value={{ user, token, isAuthenticated: !!user && !!token, login, logout, hasRole }}>
       {children}
     </AuthContext.Provider>);

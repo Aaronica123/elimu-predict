@@ -19,16 +19,19 @@ const AppLayout = () => {
     const { user, logout } = useAuth();
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
-    if (!user)
+    if (!user){
+      alert("not found")
         return null;
-    const navItems = getNavForRole(user.role);
+    }
+        
+    const navItems = getNavForRole(user[2]);
     const handleLogout = () => { logout(); navigate("/login"); };
     const Sidebar = (<aside className={cn("sidebar", open && "open")}>
       <div className="sidebar-logo">
         <GraduationCap className="logo-icon"/>
         <div className="logo-text">
           <span className="title">Elimu-Predict</span>
-          <span className="subtitle">{ROLE_LABELS[user.role]}</span>
+          <span className="subtitle">{ROLE_LABELS[user[2]]}</span>
         </div>
       </div>
 
@@ -41,10 +44,10 @@ const AppLayout = () => {
 
       <div className="sidebar-user">
         <div className="row">
-          <div className="avatar">{user.fullName.charAt(0)}</div>
+          <div className="avatar">{user[1]}</div>
           <div className="info">
-            <p className="name">{user.fullName}</p>
-            <p className="id">{user.userId}</p>
+            <p className="name">{user[1]}</p>
+            <p className="id">{user[2]}</p>
           </div>
         </div>
         <button type="button" className="btn btn-ghost danger btn-block" onClick={handleLogout}>

@@ -1,17 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
+
 import { Eye, EyeOff, GraduationCap, Loader2, ShieldCheck } from "lucide-react";
 import loginBg from "@/assets/login-bg.jpg";
-const DEMO_ACCOUNTS = {
-    TCH001: { password: "teacher123", role: "TEACHER", fullName: "Jane Wanjiku" },
-    SNR001: { password: "senior123", role: "SENIOR_TEACHER", fullName: "Peter Ochieng" },
-    PRC001: { password: "principal123", role: "PRINCIPAL", fullName: "Dr. Mary Akinyi" },
-    DPC001: { password: "deputy123", role: "DEPUTY_PRINCIPAL", fullName: "John Kamau" },
-    ITH001: { password: "ithandler123", role: "IT_HANDLER", fullName: "Kevin Mwangi" },
-    ADM001: { password: "admin123", role: "ADMIN", fullName: "Susan Njeri" },
-    PAR001: { password: "parent123", role: "PARENT", fullName: "Grace Atieno" },
-};
+import ApiClient from "../lib/api"
+// 
 const LoginPage = () => {
     const [userId, setUserId] = useState("");
     const [password, setPassword] = useState("");
@@ -19,7 +13,7 @@ const LoginPage = () => {
     const [showForgot, setShowForgot] = useState(false);
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
-    const { login } = useAuth();
+    const { login,user } = useAuth();
     const navigate = useNavigate();
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -37,16 +31,24 @@ const LoginPage = () => {
             return;
         }
         setLoading(true);
-        await new Promise((r) => setTimeout(r, 600));
-        const demo = DEMO_ACCOUNTS[userId.toUpperCase()];
-        if (demo && demo.password === password) {
-            login("demo-jwt-token", { id: 1, fullName: demo.fullName, userId: userId.toUpperCase(), role: demo.role, isActive: true });
-            setLoading(false);
-            navigate("/dashboard");
+        alert("waiting")
+        
+        
+        try{
+          const resp= await ApiClient.post('/auth/login',{"username":userId,"password":password})
+          const lt=[resp.message,resp.username,resp.role]
+          login(resp.token,lt)
+          const x=lt[1]
+          setLoading(false);
+          alert ("success"+x)
+          navigate("/dashboard")
+          
         }
-        else {
-            setLoading(false);
-            setError("Invalid credentials. Only registered school staff and parents can access this system.");
+        catch (error){
+
+          alert("failed")
+          setLoading(false);
+          alert((error.message))
         }
     };
     return (<div className="login-shell">

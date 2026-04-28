@@ -127,14 +127,14 @@ const DashboardPage = () => {
     const greeting = hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
     return (<div className="animate-fade-in">
       <div className="page-header">
-        <h1>{greeting}, {user.fullName.split(" ")[0]}</h1>
+        <h1>{greeting}, {user[0]}</h1>
         <p className="subtitle">Here's your overview for today</p>
       </div>
 
-      {user.role === "TEACHER" && <TeacherDashboard />}
-      {(user.role === "PRINCIPAL" || user.role === "DEPUTY_PRINCIPAL" || user.role === "SENIOR_TEACHER") && <PrincipalDashboard />}
-      {user.role === "PARENT" && <ParentDashboard />}
-      {(user.role === "ADMIN" || user.role === "IT_HANDLER") && <AdminDashboard />}
+      {user[2]=== "TEACHER" && <TeacherDashboard />}
+      {(user[2] === "PRINCIPAL" || user[2] === "DEPUTY_PRINCIPAL" || user[2] === "SENIOR_TEACHER") && <PrincipalDashboard />}
+      {user[2] === "PARENT" && <ParentDashboard />}
+      {(user[2] === "ADMIN" || user[2] === "IT Handler") && <AdminDashboard />}
     </div>);
 };
 export default DashboardPage;

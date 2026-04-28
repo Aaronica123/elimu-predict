@@ -1,6 +1,7 @@
 // API client for communicating with the Spring Boot backend
 // Update BASE_URL when deploying or connecting to the real backend
-const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api";
+const BASE_URL = import.meta.env.VITE_API_URL  ;
+const url="https://elimu-predict-backend.onrender.com/api/v1"
 class ApiClient {
     getToken() {
         return sessionStorage.getItem("elimu_token");
@@ -9,11 +10,12 @@ class ApiClient {
         const token = this.getToken();
         const headers = {
             "Content-Type": "application/json",
+        
             ...(options.headers || {}),
         };
         if (token)
             headers["Authorization"] = `Bearer ${token}`;
-        const res = await fetch(`${BASE_URL}${endpoint}`, { ...options, headers });
+        const res = await fetch(`${url}${endpoint}`, { ...options, headers });
         if (res.status === 401) {
             sessionStorage.removeItem("elimu_token");
             sessionStorage.removeItem("elimu_user");
@@ -36,4 +38,5 @@ class ApiClient {
         return this.request(endpoint, { method: "PUT", body: JSON.stringify(body) });
     }
 }
-export const api = new ApiClient();
+const api=new ApiClient();
+export default api;

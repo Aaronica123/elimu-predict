@@ -48,7 +48,7 @@ const MarksEntryPage = () => {
             return;
         }
         try{
-          const resp=await api.post('/auth/marks',{
+          const resp=await api.post('/marks',{
           'admissionNumber':formData.admissionNumber,
           'academicYear':formData.academicYear,
           'examType':formData.examType,
@@ -56,7 +56,7 @@ const MarksEntryPage = () => {
           'subjectId':formData.subjectId,
           'term':formData.term
         })
-        toast.success("Marks uploaded successfully", { description: `Marks saved for ${formData.admissionNumber}` });
+        toast.success("Marks uploaded successfully", { description: `Marks saved for ${resp.admissionNumber}` });
         }
         catch(error){
           alert (error.message)

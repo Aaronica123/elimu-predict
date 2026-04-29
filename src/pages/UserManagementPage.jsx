@@ -1,14 +1,25 @@
 import { Shield, ShieldOff } from "lucide-react";
 import { toast } from "@/lib/toast";
-const MOCK_USERS = [
-    { id: 1, fullName: "Jane Wanjiku", userId: "TCH001", role: "TEACHER", isActive: true },
-    { id: 2, fullName: "Peter Ochieng", userId: "SNR001", role: "SENIOR_TEACHER", isActive: true },
-    { id: 3, fullName: "Dr. Mary Akinyi", userId: "PRC001", role: "PRINCIPAL", isActive: true },
-    { id: 4, fullName: "Kevin Mwangi", userId: "ITH001", role: "IT_HANDLER", isActive: true },
-    { id: 5, fullName: "Grace Atieno", userId: "PAR001", role: "PARENT", isActive: true },
-    { id: 6, fullName: "James Oloo", userId: "TCH005", role: "TEACHER", isActive: false },
-];
-const UserManagementPage = () => (<div className="animate-fade-in">
+import api from "../lib/api";
+import { useState,useEffect } from "react";
+
+const UserManagementPage = () => {
+const [user,setUser]=useState([]);
+const x=async()=>{
+  try{
+    const resp=await api.get('/users')    
+    setUser(resp)
+    
+  }
+  catch(error){
+    alert (error.message)
+  }
+}
+useEffect(()=>{
+x()
+})
+return(
+<div className="animate-fade-in">
     <div className="row-between mb-6">
       <div>
         <h1>User Management</h1>
@@ -25,7 +36,7 @@ const UserManagementPage = () => (<div className="animate-fade-in">
               </tr>
             </thead>
             <tbody>
-              {MOCK_USERS.map((u) => (<tr key={u.id}>
+              {user.map((u) => (<tr key={u.id}>
                   <td className="font-bold">{u.fullName}</td>
                   <td className="mono">{u.userId}</td>
                   <td><span className="badge">{u.role.replace("_", " ")}</span></td>
@@ -46,5 +57,6 @@ const UserManagementPage = () => (<div className="animate-fade-in">
         </div>
       </div>
     </div>
-  </div>);
+  </div>)
+};
 export default UserManagementPage;

@@ -16,6 +16,7 @@ import UserManagementPage from "@/pages/UserManagementPage";
 import AuditLogsPage from "@/pages/AuditLogsPage";
 import MyChildPage from "@/pages/MyChildPage";
 import NotFound from "@/pages/NotFound";
+import ViewMarksPage from "@/pages/ViewMarksPage";
 const App = () => (<AuthProvider>
     <ToastProvider>
       <BrowserRouter>
@@ -37,6 +38,7 @@ const App = () => (<AuthProvider>
           <Route element={<ProtectedRoute allowedRoles={["TEACHER"]}/>}>
             <Route element={<AppLayout />}>
               <Route path="/marks" element={<MarksEntryPage />}/>
+              <Route path="/view-marks" element={<ViewMarksPage/>}/>
             </Route>
           </Route>
 

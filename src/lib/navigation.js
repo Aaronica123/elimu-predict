@@ -26,10 +26,11 @@ export const NAV_ITEMS = [
     },
     {
         label: "View Marks",
-        path: "/marks/view",
+        path: "/view-marks",
         icon: ClipboardList,
         roles: ["TEACHER", "SENIOR_TEACHER", "DEPUTY_PRINCIPAL", "PRINCIPAL", "IT_HANDLER", "ADMIN", "PARENT"],
     },
+    
     {
         label: "AI Analysis",
         path: "/ai-analysis",

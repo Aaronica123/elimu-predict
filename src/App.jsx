@@ -41,6 +41,7 @@ const App = () => (<AuthProvider>
           <Route element={<ProtectedRoute allowedRoles={["IT_HANDLER"]}/>}>
             <Route element={<AppLayout />}>
               <Route path="/register-users" element={<RegisterUsersPage />}/>
+              <Route path="/register-students" element={<StudentsPage/>}/>
             </Route>
           </Route>
 

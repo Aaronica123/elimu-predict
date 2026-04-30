@@ -1,5 +1,6 @@
 import { BookOpen, Search, FlaskConical, Globe, Languages, Music, Hammer } from "lucide-react";
-import { useState } from "react";
+import { useState,useEffect } from "react";
+import api from "../lib/api";
 const SUBJECTS = [
     { id: 1, code: "ENG101", name: "English", category: "Languages", compulsory: true },
     { id: 2, code: "KIS101", name: "Kiswahili", category: "Languages", compulsory: true },
@@ -39,8 +40,24 @@ const ICONS = {
 };
 const CATEGORIES = ["Languages", "Sciences", "Humanities", "Technical", "Creative Arts"];
 const SubjectsPage = () => {
-    const [search, setSearch] = useState("");
-    const filtered = SUBJECTS.filter((s) => s.name.toLowerCase().includes(search.toLowerCase()) || s.code.toLowerCase().includes(search.toLowerCase()));
+
+    //const [search, setSearch] = useState("");
+    
+    //const filtered = SUBJECTS.filter((s) => s.name.toLowerCase().includes(search.toLowerCase()) || s.code.toLowerCase().includes(search.toLowerCase()));
+    const [user,setUser]=useState([])
+    const fetch=async()=>{
+      try{
+        const resp=await api.get('/subjects')
+        const hold=resp
+        setUser(hold)
+      }
+      catch(error){
+        alert(error.message)
+      }
+    }
+    useEffect(()=>{
+      fetch()
+    },[])
     return (<div className="animate-fade-in">
       <div className="page-header">
         <h1>Subjects</h1>
@@ -50,11 +67,25 @@ const SubjectsPage = () => {
       <div className="search-bar">
         <div className="input-group">
           <Search className="icon-left"/>
-          <input className="input with-icon-left" placeholder="Search subjects..." value={search} onChange={(e) => setSearch(e.target.value)}/>
+          <input className="input with-icon-left" placeholder="Search subjects..." />
         </div>
       </div>
-
-      {CATEGORIES.map((category) => {
+       <div className="grid grid-3">
+              {user.map((s) => (<div key={s.id} className="subject-card">
+                  <div className="icon-wrap"><BookOpen /></div>
+                  <div style={{ flex: 1 }}>
+                    <div className="flex items-center gap-2 mb-2">
+                      <p className="font-mono text-xs muted-text">{s.subjectCode}</p>
+                       <p className="font-mono text-xs muted-text">{s.subjectName}</p>
+                        {/* <p className="font-mono text-xs muted-text">{s.teacherId}</p> */}
+                         <p className="font-mono text-xs muted-text">{s.className}</p>
+                      {s.compulsory && <span className="badge primary">Compulsory</span>}
+                    </div>
+                    <h3 style={{ fontSize: "1rem" }}>{s.name}</h3>
+                  </div>
+                </div>))}
+            </div>
+      {/* {CATEGORIES.map((category) => {
             const subjects = filtered.filter((s) => s.category === category);
             if (subjects.length === 0)
                 return null;
@@ -64,22 +95,11 @@ const SubjectsPage = () => {
               {category}
               <span className="badge">{subjects.length}</span>
             </h2>
-            <div className="grid grid-3">
-              {subjects.map((s) => (<div key={s.id} className="subject-card">
-                  <div className="icon-wrap"><BookOpen /></div>
-                  <div style={{ flex: 1 }}>
-                    <div className="flex items-center gap-2 mb-2">
-                      <p className="font-mono text-xs muted-text">{s.code}</p>
-                      {s.compulsory && <span className="badge primary">Compulsory</span>}
-                    </div>
-                    <h3 style={{ fontSize: "1rem" }}>{s.name}</h3>
-                  </div>
-                </div>))}
-            </div>
+           
           </div>);
-        })}
+        })} */}
 
-      {filtered.length === 0 && (<p className="text-center muted-text" style={{ padding: "3rem 0" }}>No subjects found matching your search.</p>)}
+      {/* {filtered.length === 0 && (<p className="text-center muted-text" style={{ padding: "3rem 0" }}>No subjects found matching your search.</p>)} */}
     </div>);
 };
 export default SubjectsPage;

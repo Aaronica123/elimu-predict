@@ -76,8 +76,7 @@ const AddStudentDialog = () => {
         document.addEventListener("keydown", onKey);
         return () => document.removeEventListener("keydown", onKey);
     }, [open]);
-const date=new Date()
-const n=date.getFullYear()
+
     const handleSubmit = async(e) => {
         e.preventDefault();
         // const errs = validate(form);
@@ -91,7 +90,7 @@ const n=date.getFullYear()
             "admissionNumber":form.admissionNo,
             "fullName":form.fullName,
             "className":form.className,
-            "enrollmentYear":n
+            "enrollmentYear":2026
           })
           toast.success("Student registered successfully", { description: `${resp.fullName} ` });
         setForm(INITIAL);
@@ -126,12 +125,12 @@ const n=date.getFullYear()
 
     return (<>
       <button className="btn btn-primary" onClick={() => setOpen(true)}>
-        <Plus /> Add Student
+        <Plus /> Add Parent
       </button>
       {open && (<div className="modal-backdrop" role="dialog" aria-modal="true" onClick={(e) => e.target === e.currentTarget && setOpen(false)}>
           <div className="modal">
             <h2><GraduationCap /> Register New Student</h2>
-            <form onSubmit={handleSubmit} noValidate style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+            {/* <form onSubmit={handleSubmit} noValidate style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
               <div>
                 <h3 className="text-sm font-bold mb-3">Student Information</h3>
                 <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
@@ -164,12 +163,12 @@ const n=date.getFullYear()
                         <option value="West">West</option>
                         <option value="North">North</option>
                       </select>
-                    </div> */}
-                    {/* <div className="field">
+                    </div> *
+                    <div className="field">
                       <label className="label text-xs">Date of Birth</label>
                       <input className="input" required type="date" max={new Date().toISOString().split("T")[0]} value={form.dateOfBirth} onChange={(e) => set("dateOfBirth", e.target.value)}/>
                       {errors.dateOfBirth && <p style={errStyle}>{errors.dateOfBirth}</p>}
-                    </div> */}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -177,7 +176,8 @@ const n=date.getFullYear()
                 <button type="button" className="btn btn-outline" onClick={() => setOpen(false)}>Cancel</button>
                 <button type="submit" className="btn btn-primary"><GraduationCap /> Register Student</button>
               </div>
-              </form>
+              </form> 
+              */}
               
               <form onSubmit={link} noValidate style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
               <hr className="divider"/>
@@ -240,7 +240,7 @@ const n=date.getFullYear()
 
               <div className="flex gap-3 justify-end">
                 <button type="button" className="btn btn-outline" onClick={() => setOpen(false)}>Cancel</button>
-                <button type="submit" className="btn btn-primary"><GraduationCap />Link Parent</button>
+                <button type="submit" className="btn btn-primary"><GraduationCap /> Register Student</button>
               </div>
             </form>
           </div>

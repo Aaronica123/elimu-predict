@@ -48,6 +48,7 @@ const MarksEntryPage = () => {
             return;
         }
         try{
+          
           const resp=await api.post('/marks',{
           'admissionNumber':formData.admissionNumber,
           'academicYear':formData.academicYear,
@@ -87,9 +88,9 @@ const MarksEntryPage = () => {
                 <select className="select" value={formData.subjectId} onChange={(e) => set("subjectId", e.target.value)} required>
                   <option value="">Select subject</option>
                   <option value="1">Mathematics</option>
-                  <option value="2">English</option>
-                  <option value="3">Physics</option>
-                  <option value="4">Chemistry</option>
+                  <option value="ENG101">English</option>
+                  <option value="PHY101">Physics</option>
+                  <option value="CHEM101">Chemistry</option>
                 </select>
                 {errors.subjectId && <p style={errStyle}>{errors.subjectId}</p>}
               </div>
@@ -102,9 +103,9 @@ const MarksEntryPage = () => {
                 <label className="label">Exam Type</label>
                 <select className="select" value={formData.examType} onChange={(e) => set("examType", e.target.value)} required>
                   <option value="">Select exam type</option>
-                  <option value="CAT1">CAT 1</option>
-                  <option value="CAT2">CAT 2</option>
-                  <option value="MID_TERM">Mid Term</option>
+                  <option value="CAT_1">CAT 1</option>
+                  <option value="CAT_2">CAT 2</option>
+                  <option value="EXAM_1">Exam 1</option>
                   <option value="END_TERM">End Term</option>
                   <option value="MOCK">Mock</option>
                 </select>

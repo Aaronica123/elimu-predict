@@ -33,10 +33,16 @@ const App = () => (<AuthProvider>
             </Route>
           </Route>
 
+          <Route element={<ProtectedRoute allowedRoles={["TEACHER","PRINCIPAL","DEPUTY_PRINCIPAL","SENIOR_TEACHER"]}/>}>
+            <Route element={<AppLayout />}>
+              {/* <Route path="/marks" element={<MarksEntryPage />}/> */}
+              <Route path="/view-marks" element={<ViewMarksPage/>}/>
+            </Route>
+          </Route>
           <Route element={<ProtectedRoute allowedRoles={["TEACHER"]}/>}>
             <Route element={<AppLayout />}>
               <Route path="/marks" element={<MarksEntryPage />}/>
-              <Route path="/view-marks" element={<ViewMarksPage/>}/>
+              {/* <Route path="/view-marks" element={<ViewMarksPage/>}/> */}
             </Route>
           </Route>
 

@@ -11,9 +11,20 @@ const ViewMarksPage = () => {
   const[term,setTerm]=useState("")
   const[year,setYear]=useState("")
   const [user,setUser]=useState([])
-
-
-
+  const [sub,setsubject]=useState([])
+  const subject=async()=>{
+    
+    try{
+      const resp=await api.get('/subjects')
+      setsubject(resp)
+    }
+    catch(error){
+alert(error.message)
+    }
+  }
+  useEffect(()=>{
+    subject()
+  },[])
   const fetch=async(e)=>{
     e.preventDefault();
     try{
@@ -27,30 +38,7 @@ const ViewMarksPage = () => {
     }
 }
 
-//   useEffect(() => {
-//     let active = true;
-//     (async () => {
-//       try {
-//         const res = await api.get(`/marks/student/${}`);
-//         if (active) setMarks(Array.isArray(res.data) ? res.data : res.data?.content ?? []);
-        
-//       } catch (err) {
-//         toast.error(err?.response?.data?.message || "Failed to load marks");
-//       } finally {
-//         if (active) setLoading(false);
-//       }
-//     })();
-//     return () => { active = false; };
-//   }, []);
 
-//   const filtered = marks.filter((m) => {
-//     const q = query.toLowerCase();
-//     return (
-//       String(m.admissionNumber || "").toLowerCase().includes(q) ||
-//       String(m.studentName || "").toLowerCase().includes(q) ||
-//       String(m.subjectName || m.subject || "").toLowerCase().includes(q)
-//     );
-//   });
 
   return (
     <div className="animate-fade-in">
@@ -64,7 +52,16 @@ const ViewMarksPage = () => {
             <div className="grid grid-2">
                 <div className="field">
             <label>subjectCode</label>
-          <input
+            <select className="select" onChange={(e) => setsubjectCode(e.target.value)}>
+              <option value="">Select Option</option>
+            {sub.map((e)=>(<div >
+              
+              <option value={e.subjectCode}>{e.subjectName}</option>
+            
+            </div>))}
+            </select>
+            
+          {/* <input
             type="text"
             //placeholder="Search by admission no, student or subject..."
             value={subjectCode}
@@ -72,23 +69,29 @@ const ViewMarksPage = () => {
             className="input"
             
             style={{ width: "100%", maxWidth: 360 }}
-          />
+          /> */}
           </div>
           <div className="field">
           <label>term</label>
-          <input
-            type="text"
+          <select onChange={(e) => setTerm(e.target.value)} className="select">
+            <option value="">Select Term</option>
+            <option value="TERM_1">TERM 1</option>
+            <option value="TERM_2">TERM 2</option>
+            <option value="TERM_3">TERM 3</option>
+          </select>
+          {/* <input
+            type="textt"
            // placeholder="Search by admission no, student or subject..."
             value={term}
             onChange={(e) => setTerm(e.target.value)}
             className="input"
             style={{ width: "100%", maxWidth: 360 }}
-          />
+          /> */}
           </div>
           <div className="field">
           <label>Year</label>
           <input
-            type="text"
+            type="number"
             //placeholder="Search by admission no, student or subject..."
             value={year}
             onChange={(e) => setYear(e.target.value)}

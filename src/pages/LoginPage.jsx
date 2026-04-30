@@ -37,10 +37,12 @@ const LoginPage = () => {
         try{
           const resp= await ApiClient.post('/auth/login',{"username":userId,"password":password})
           const lt=[resp.message,resp.username,resp.role]
+          
           login(resp.token,lt)
+
           const x=lt[1]
           setLoading(false);
-          alert ("success"+x +lt[2])
+          alert ("success"+ x+lt[2])
           navigate("/dashboard")
           
         } 

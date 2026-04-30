@@ -16,7 +16,7 @@ import UserManagementPage from "@/pages/UserManagementPage";
 import AuditLogsPage from "@/pages/AuditLogsPage";
 import MyChildPage from "@/pages/MyChildPage";
 import NotFound from "@/pages/NotFound";
-import ViewMarksPage from "@/pages/ViewMarksPage";
+// import ViewMarksPage from "@/pages/ViewMarksPage";
 const App = () => (<AuthProvider>
     <ToastProvider>
       <BrowserRouter>
@@ -31,16 +31,23 @@ const App = () => (<AuthProvider>
               <Route path="/subjects" element={<SubjectsPage />}/>
               <Route path="/reports" element={<ReportsPage />}/>
               <Route path="/ai-analysis" element={<AiAnalysisPage />}/>
-              <Route path="/marks/view" element={<ViewMarksPage />}/>
+              {/* <Route path="/marks/view" element={<ViewMarksPage />}/> */}
             </Route>
           </Route>
 
-          <Route element={<ProtectedRoute allowedRoles={["TEACHER"]}/>}>
+          <Route element={<ProtectedRoute allowedRoles={["TEACHER", "SENIOR_TEACHER", "DEPUTY_PRINCIPAL", "PRINCIPAL", "PARENT"]}/>}>
             <Route element={<AppLayout />}>
-              <Route path="/marks" element={<MarksEntryPage />}/>
+              {/* <Route path="/marks" element={<MarksEntryPage />}/> */}
               <Route path="/view-marks" element={<ViewMarksPage/>}/>
             </Route>
           </Route>
+          <Route element={<ProtectedRoute allowedRoles={["TEACHER"]}/>}>
+            <Route element={<AppLayout />}>
+              <Route path="/marks" element={<MarksEntryPage />}/>
+              {/* <Route path="/view-marks" element={<ViewMarksPage/>}/> */}
+            </Route>
+          </Route>
+          
 
           <Route element={<ProtectedRoute allowedRoles={["IT_HANDLER"]}/>}>
             <Route element={<AppLayout />}>

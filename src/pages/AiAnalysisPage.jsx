@@ -1,12 +1,13 @@
 import { AlertTriangle, Lightbulb } from "lucide-react";
-const MOCK_ANALYSIS = [
-    { student: "Brian Otieno", admissionNo: "ADM2024001", subject: "Mathematics", riskPercentage: 82, riskLevel: "HIGH",
-        suggestion: "1. Practice 10 algebra problems daily focusing on quadratic equations.\n2. Join after-school math remedial sessions.\n3. Use visual aids and Khan Academy videos for geometry concepts." },
-    { student: "Faith Wambui", admissionNo: "ADM2024002", subject: "Physics", riskPercentage: 74, riskLevel: "HIGH",
-        suggestion: "1. Focus on understanding force diagrams before solving problems.\n2. Perform practical experiments at home with simple materials.\n3. Form a study group to discuss concepts weekly." },
-    { student: "Dennis Njoroge", admissionNo: "ADM2024003", subject: "Chemistry", riskPercentage: 55, riskLevel: "MEDIUM",
-        suggestion: "1. Create flashcards for chemical equations and reactions.\n2. Watch YouTube videos on balancing equations.\n3. Practice past papers for organic chemistry." },
-];
+import api from '../lib/api';
+// const MOCK_ANALYSIS = [
+//     { student: "Brian Otieno", admissionNo: "ADM2024001", subject: "Mathematics", riskPercentage: 82, riskLevel: "HIGH",
+//         suggestion: "1. Practice 10 algebra problems daily focusing on quadratic equations.\n2. Join after-school math remedial sessions.\n3. Use visual aids and Khan Academy videos for geometry concepts." },
+//     { student: "Faith Wambui", admissionNo: "ADM2024002", subject: "Physics", riskPercentage: 74, riskLevel: "HIGH",
+//         suggestion: "1. Focus on understanding force diagrams before solving problems.\n2. Perform practical experiments at home with simple materials.\n3. Form a study group to discuss concepts weekly." },
+//     { student: "Dennis Njoroge", admissionNo: "ADM2024003", subject: "Chemistry", riskPercentage: 55, riskLevel: "MEDIUM",
+//         suggestion: "1. Create flashcards for chemical equations and reactions.\n2. Watch YouTube videos on balancing equations.\n3. Practice past papers for organic chemistry." },
+// ];
 const riskClass = { HIGH: "danger", MEDIUM: "warning", LOW: "success" };
 const AiAnalysisPage = () => (<div className="animate-fade-in">
     <div className="page-header">

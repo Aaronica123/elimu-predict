@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "@/lib/toast";
 import api from "../lib/api";
 // const ADMISSION_RE = /^[A-Z]{2,4}\d{3,8}$/;
@@ -40,7 +40,21 @@ const MarksEntryPage = () => {
     // const setDigits = (field, value) => set(field, value.replace(/\D/g, ""));
     const d=new Date()
     const y=d.getFullYear()
-    
+    const[sub1,setsub]=useState([])
+    const sub=async()=>{
+      try{
+        const resp=await api.get('/subjects')
+        setsub(resp)
+
+
+      }
+      catch(error){
+        alert(error.message)
+      }
+    }
+    useEffect(()=>{
+      sub()
+    },[])
     const handleSubmit = async(e) => {
         e.preventDefault();
         // const errs = validate(formData);
@@ -79,6 +93,7 @@ parseFloat(formData.marksObtained)
         alert("success")
         
         toast.success("Marks uploaded successfully", { description: `Marks saved for ${resp.admissionNumber}` });
+        
         }
         catch(error){
           alert (error.message)
@@ -106,12 +121,16 @@ parseFloat(formData.marksObtained)
               </div>
               <div className="field">
                 <label className="label">Subject</label>
-                <select className="select" value={formData.subjectId} onChange={(e) => set("subjectId", e.target.value)} required>
+                <select className="select" onChange={(e) => set("subjectId", e.target.value)} required>
                   <option value="">Select subject</option>
+                  {sub1.map((e)=><div>
+                    <option value={e.subjectCode}>{e.subjectName}</option>
+                  </div>)}
+                  {/* <option value="">Select subject</option>
                   <option value="MATH101">Mathematics</option>
                   <option value="ENG101">English</option>
                   <option value="PHY101">Physics</option>
-                  <option value="CHEM101">Chemistry</option>
+                  <option value="CHEM101">Chemistry</option> */}
                 </select>
                 {errors.subjectId && <p style={errStyle}>{errors.subjectId}</p>}
               </div>
@@ -129,9 +148,9 @@ parseFloat(formData.marksObtained)
                   <option value="">Select exam type</option>
                   <option value="CAT_1">CAT 1</option>
                   <option value="CAT_2">CAT 2</option>
-                  <option value="EXAM_1">Exam 1</option>
-                  <option value="EXAM_2">End Term</option>
-                  <option value="EXAM_3">Mock</option>
+                  <option value="EXAM_1">EXAM 1</option>
+                  <option value="EXAM_2">EXAM 2</option>
+                  <option value="EXAM_3">EXAM 3</option>
                 </select>
                 {errors.examType && <p style={errStyle}>{errors.examType}</p>}
               </div>
@@ -147,7 +166,7 @@ parseFloat(formData.marksObtained)
               </div>
               <div className="field">
                 <label className="label">Academic Year</label>
-                <input className="input" inputMode="numeric"pattern="\d*" required value={formData.academicYear} onChange={(e) => set("academicYear", e.target.value)} maxLength={4}/>
+                <input className="input" type="number"inputMode="numeric"pattern="\d*" required value={formData.academicYear} onChange={(e) => set("academicYear", e.target.value)} maxLength={4}/>
                 {errors.academicYear && <p style={errStyle}>{errors.academicYear}</p>}
               </div>
             </div>

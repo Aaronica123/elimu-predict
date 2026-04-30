@@ -83,11 +83,16 @@ const App = () => (
             </Route>
           </Route>
 
-          {/* Principal-only */}
-          <Route element={<ProtectedRoute allowedRoles={["PRINCIPAL","DEPUTY_PRINCIPAL"]} />}>
+          <Route element={<ProtectedRoute allowedRoles={["TEACHER","PRINCIPAL","DEPUTY_PRINCIPAL","SENIOR_TEACHER"]}/>}>
             <Route element={<AppLayout />}>
-              <Route path="/principal/dashboard" element={<PrincipalDashboardPage />} />
-              <Route path="/principal/analysis" element={<PrincipalAnalysisPage />} />
+              {/* <Route path="/marks" element={<MarksEntryPage />}/> */}
+              <Route path="/view-marks" element={<ViewMarksPage/>}/>
+            </Route>
+          </Route>
+          <Route element={<ProtectedRoute allowedRoles={["TEACHER"]}/>}>
+            <Route element={<AppLayout />}>
+              <Route path="/marks" element={<MarksEntryPage />}/>
+              {/* <Route path="/view-marks" element={<ViewMarksPage/>}/> */}
             </Route>
           </Route>
 

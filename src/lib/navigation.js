@@ -28,7 +28,7 @@ export const NAV_ITEMS = [
         label: "View Marks",
         path: "/view-marks",
         icon: ClipboardList,
-        roles: ["TEACHER", "SENIOR_TEACHER", "PRINCIPAL"],
+        roles: ["TEACHER", "SENIOR_TEACHER", "DEPUTY_PRINCIPAL", "PRINCIPAL", "IT_HANDLER", "ADMIN", "PARENT"],
     },
     
     {

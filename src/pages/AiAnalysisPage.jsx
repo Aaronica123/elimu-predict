@@ -119,7 +119,12 @@ return(<div className="animate-fade-in">
               </div>
             </div>
           </div>
-        </div>))}
+        </div>
+      )}
+
+      {result && !Array.isArray(result) && (
+        <div className="card"><div className="card-content"><pre style={{whiteSpace:"pre-wrap"}}>{JSON.stringify(result, null, 2)}</pre></div></div>
+      )}
     </div>
   </div>);
 }

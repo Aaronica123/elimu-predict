@@ -8,6 +8,7 @@ import DashboardPage from "@/pages/DashboardPage";
 import StudentsPage from "@/pages/StudentsPage";
 import SubjectsPage from "@/pages/SubjectsPage";
 import MarksEntryPage from "@/pages/MarksEntryPage";
+import ViewMarksPage from "@/pages/ViewMarksPage";
 import AiAnalysisPage from "@/pages/AiAnalysisPage";
 import ReportsPage from "@/pages/ReportsPage";
 import RegisterUsersPage from "@/pages/RegisterUsersPage";
@@ -29,6 +30,7 @@ const App = () => (<AuthProvider>
               <Route path="/subjects" element={<SubjectsPage />}/>
               <Route path="/reports" element={<ReportsPage />}/>
               <Route path="/ai-analysis" element={<AiAnalysisPage />}/>
+              <Route path="/marks/view" element={<ViewMarksPage />}/>
             </Route>
           </Route>
 

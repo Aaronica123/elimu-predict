@@ -2,7 +2,7 @@ import { Search, GraduationCap } from "lucide-react";
 import { useState,useEffect } from "react";
 import api from "../lib/api";
 import AddStudentDialog from "@/components/AddStudentDialog";
-import AddParentDialog from "@/components/AddPArentDialog"
+import AddParentDialog from "@/components/AddParentDialog"
 import { useAuth } from "@/contexts/AuthContext";
 
 const StudentsPage = () => {

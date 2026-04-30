@@ -1,5 +1,7 @@
 import { AlertTriangle, Lightbulb } from "lucide-react";
 import api from '../lib/api';
+import axios from "axios";
+import { useState } from "react";
 // const MOCK_ANALYSIS = [
 //     { student: "Brian Otieno", admissionNo: "ADM2024001", subject: "Mathematics", riskPercentage: 82, riskLevel: "HIGH",
 //         suggestion: "1. Practice 10 algebra problems daily focusing on quadratic equations.\n2. Join after-school math remedial sessions.\n3. Use visual aids and Khan Academy videos for geometry concepts." },
@@ -22,20 +24,29 @@ const AiAnalysisPage = () =>
   const fetch=async(e)=>{
     e.preventDefault();
     alert("loading")
+    const token = localStorage.getItem("token");
   try{
     alert("fetching")
-    const resp=await api.post(`/ai/analyze/student/${admissionNumber}`,{
-    "term":term,
-    "academicYear":parseInt(academicyear),
-  })
-  
-  setUser(resp)
+    // const resp=await axios.post(`/ai/analyze/student/${admissionNumber}`,null,{
+    //   params:{
+    //     "term":term,
+    //     "academicYear":parseInt(academicyear)
+    //   },
+    //   headers:{
+    //     Authorization:`Bearer${token}`
+    //   }
+    // })
+    const r=await axios.post(`/ai/analyze/student/1047?term=TERM_1&academicYear=2026`, {
+    method: 'POST'
+});
+  // setUser(resp)
   alert("success")
 
   }
   
   catch(error){
-    alert(error.message)
+   // console.error("Build Error Details:", error.response);
+    alert(error.response?.status === 404 ? "Endpoint not found. Check the URL path." : error.message);
   }
 }
 

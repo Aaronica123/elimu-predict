@@ -1,5 +1,5 @@
 import { Search, GraduationCap } from "lucide-react";
-import { useState,useEffect } from "react";
+import { useState,useEffect,useCallback } from "react";
 import api from "../lib/api";
 import AddStudentDialog from "@/components/AddStudentDialog";
 import AddParentDialog from "@/components/AddParentDialog"
@@ -11,12 +11,12 @@ const StudentsPage = () => {
     const n="1008"
     const cl="Form 1N"
     const [user,setUser]=useState([]);
-    
+    const [loading, setLoading] = useState(false);
     const fetchStudents = useCallback(async () => {
     setLoading(true);
     try {
       
-      const query = search.trim() === "" ? cl : search;
+      const query = search === "" ? cl : search;
       const response = await api.get(`/students/class/${query}`);
       
       setUser(response);

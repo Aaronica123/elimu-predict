@@ -39,7 +39,7 @@ export const NAV_ITEMS = [
         label: "View Marks",
         path: "/view-marks",
         icon: ClipboardList,
-        roles: ["TEACHER", "SENIOR_TEACHER", "DEPUTY_PRINCIPAL", "PRINCIPAL", "PARENT"],
+        roles: ["TEACHER", "SENIOR_TEACHER", "DEPUTY_PRINCIPAL", "PRINCIPAL"],
     },
     
     // {
@@ -52,13 +52,13 @@ export const NAV_ITEMS = [
         label: "AI Class Analysis",
         path: "/school-analysis",
         icon: Brain,
-        roles: ["TEACHER", "SENIOR_TEACHER", "PRINCIPAL", "PARENT"],
+        roles: ["TEACHER", "SENIOR_TEACHER", "PRINCIPAL"],
     },
     {
         label: "AI Student Analysis",
         path: "/student-analysis",
         icon: Brain,
-        roles: ["TEACHER", "SENIOR_TEACHER", "PRINCIPAL", "PARENT"],
+        roles: ["TEACHER", "SENIOR_TEACHER", "PRINCIPAL"],
     },
     {
         label: "Reports",
@@ -108,6 +108,32 @@ export const NAV_ITEMS = [
         path: "/my-child",
         icon: GraduationCap,
         roles: ["PARENT"],
+    },
+    {
+        label: "Parent Dashboard",
+        path: "/parent/dashboard",
+        icon: GraduationCap,
+        roles: ["PARENT"],
+    },
+    {
+        label: "View Children",
+        path: "/parent-children",
+        icon: GraduationCap,
+        roles: ["PARENT"],
+    },
+    {
+        label: "Child Profile",
+        path: "/parent/child/:adm",
+        icon: GraduationCap,
+        roles: ["PARENT"],
+        hidden: true,
+    },
+    {
+        label: "AI Suggestions",
+        path: "/parent/child/:adm/suggestions",
+        icon: Lightbulb,
+        roles: ["PARENT"],
+        hidden: true,
     },
 ];
 

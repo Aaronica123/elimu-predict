@@ -115,10 +115,18 @@ class ApiClient {
   principalDashboard() { return this.get("/principal/dashboard"); }
   principalAnalysis() { return this.get("/principal/analysis"); }
 
-  // ---------- Parent ----------
-  parentChildren() { return this.get("/parent/children"); }
-  parentChild(adm) { return this.get(`/parent/children/${adm}`); }
-  parentSuggestions(adm) { return this.get(`/parent/children/${adm}/suggestions`); }
+  // Add these methods to your ApiClient class in api.js
+
+// ---------- Parent ----------
+parentChildren(term = "TERM_1", academicYear = new Date().getFullYear()) { 
+  return this.get(`/parent/children?term=${term}&academicYear=${academicYear}`); 
+}
+parentChild(adm, term = "TERM_1", academicYear = new Date().getFullYear()) { 
+  return this.get(`/parent/children/${adm}?term=${term}&academicYear=${academicYear}`); 
+}
+parentSuggestions(adm, term = "TERM_1", academicYear = new Date().getFullYear()) { 
+  return this.get(`/parent/children/${adm}/suggestions?term=${term}&academicYear=${academicYear}`); 
+}
 
   // ---------- Reports ----------
   schoolReport() { return this.get("/reports/school"); }

@@ -35,6 +35,7 @@ import NotFound from "@/pages/NotFound";
 import SchoolAnalysisPage from "./pages/ai/SchoolAnalysisPage";
 import StudentAnalysisPage from "./pages/ai/StudentAnalysis";
 import DashboardPage1 from "./pages/ai/Dash1";
+import ParentDashboard from "@/pages/ParentDashboard";
 //import SubjectsPage from "./pages/SubjectsPage";
 // import ViewMarksPage from "@/pages/ViewMarksPage";
 const App = () => (<AuthProvider>
@@ -57,7 +58,7 @@ const App = () => (<AuthProvider>
             </Route>
           </Route>
 
-          <Route element={<ProtectedRoute allowedRoles={["TEACHER", "SENIOR_TEACHER", "DEPUTY_PRINCIPAL", "PRINCIPAL", "PARENT"]}/>}>
+          <Route element={<ProtectedRoute allowedRoles={["TEACHER", "SENIOR_TEACHER", "DEPUTY_PRINCIPAL", "PRINCIPAL"]}/>}>
             <Route element={<AppLayout />}>
               {/* <Route path="/marks" element={<MarksEntryPage />}/> */}
               <Route path="/view-marks" element={<ViewMarksPage/>}/>
@@ -101,15 +102,16 @@ const App = () => (<AuthProvider>
             </Route>
           </Route>
 
-          {/* Parent */}
-          <Route element={<ProtectedRoute allowedRoles={["PARENT"]} />}>
-            <Route element={<AppLayout />}>
-              <Route path="/my-child" element={<MyChildPage />} />
-              <Route path="/parent/children" element={<ParentChildrenPage />} />
-              <Route path="/parent/child/:adm" element={<ParentChildProfilePage />} />
-              <Route path="/parent/child/:adm/suggestions" element={<ParentSuggestionsPage />} />
-            </Route>
-          </Route>
+          {/* Parent Routes - FIXED */}
+<Route element={<ProtectedRoute allowedRoles={["PARENT"]} />}>
+  <Route element={<AppLayout />}>
+    <Route path="/my-child" element={<MyChildPage />} />
+    <Route path="/parent/dashboard" element={<ParentDashboard />} />
+    <Route path="/parent-children" element={<ParentChildrenPage />} />
+    <Route path="/parent/child/:adm" element={<ParentChildProfilePage />} />
+    <Route path="/parent/child/:adm/suggestions" element={<ParentSuggestionsPage />} />
+  </Route>
+</Route>
 
           <Route path="*" element={<NotFound />} />
         </Routes>

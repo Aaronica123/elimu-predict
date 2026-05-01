@@ -64,7 +64,20 @@ const SubjectsPage = () => {
                 <input className="input" required value={form.subjectName} onChange={(e) => setForm({...form, subjectName: e.target.value})} placeholder="Mathematics"/>
               </div>
               <div className="field"><label className="label">Class</label>
-                <input className="input" required value={form.className} onChange={(e) => setForm({...form, className: e.target.value})} placeholder="Form 1A"/>
+              <select onChange={(e) => setForm({...form, className: e.target.value})} className="select">
+                <option value="">select class</option>
+                <option value="Form 1N">Form 1N</option>
+                <option value="Form 1B">Form 1B</option>
+                <option value="Form 2A">Form 2A</option>
+                <option value="Form 2B">Form 2B</option>
+                <option value="Form 3A">Form 3A</option>
+                <option value="Form 3B">Form 3B</option>
+                <option value="Form 4A">Form 4A</option>
+                <option value="Form 4B">Form 4B</option>
+                
+                       
+              </select>
+                {/* <input className="input" required value={form.className} onChange={(e) => setForm({...form, className: e.target.value})} placeholder="Form 1A"/> */}
               </div>
               <div><button type="submit" className="btn btn-primary">Create</button></div>
             </form>

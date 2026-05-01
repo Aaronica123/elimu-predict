@@ -57,7 +57,7 @@ const App = () => (<AuthProvider>
             </Route>
           </Route>
 
-          <Route element={<ProtectedRoute allowedRoles={["TEACHER", "SENIOR_TEACHER", "DEPUTY_PRINCIPAL", "PRINCIPAL", "PARENT"]}/>}>
+          <Route element={<ProtectedRoute allowedRoles={["TEACHER", "SENIOR_TEACHER", "DEPUTY_PRINCIPAL", "PRINCIPAL"]}/>}>
             <Route element={<AppLayout />}>
               {/* <Route path="/marks" element={<MarksEntryPage />}/> */}
               <Route path="/view-marks" element={<ViewMarksPage/>}/>
